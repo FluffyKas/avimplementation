@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Verification Implementation Service | Setup for Adult Content Sites</title>
+  <meta name="description" content="Professional age verification implementation for adult content sites. Full technical setup, any platform, from $300. No code required, no data stored.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://avimplementation.com/">
+  <meta property="og:title" content="Age Verification Implementation Service">
+  <meta property="og:description" content="Professional age verification setup for adult content sites. Full technical implementation, any platform, from $300.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://avimplementation.com/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Age Verification Implementation Service">
+  <meta name="twitter:description" content="Professional age verification setup for adult content sites. Full technical implementation, any platform, from $300.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --surface: #faf9f5;
+      --surface-container: #efeeea;
+      --surface-container-high: #e9e8e4;
+      --surface-container-lowest: #ffffff;
+      --on-surface: #1b1c1a;
+      --on-surface-variant: #40484a;
+      --primary: #0d484f;
+      --primary-deep: #003036;
+      --on-primary: #ffffff;
+      --primary-tint: rgba(13, 72, 79, 0.05);
+      --primary-glow: rgba(13, 72, 79, 0.12);
+      --secondary: #2563eb;
+      --outline: #70797a;
+      --outline-variant: #c0c8c9;
+      --border: #e2e8f0;
+      --border-input: #cbd5e1;
+      --error: #ba1a1a;
+      --font-display: 'Hanken Grotesk', system-ui, sans-serif;
+      --font-body: 'Inter', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --rounded: 0.25rem;
+      --container: 1200px;
+      --gutter: 24px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      color: var(--on-surface);
+      background: var(--surface);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-image: radial-gradient(circle, rgba(13,72,79,0.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+    }
+
+    .container {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    /* ---- NAV ---- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 249, 245, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.3s ease, background 0.3s ease;
+    }
+    .nav.scrolled {
+      background: rgba(250, 249, 245, 0.97);
+      box-shadow: 0 1px 12px var(--primary-tint);
+    }
+    .nav-inner {
+      max-width: var(--container);
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-name {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--primary-deep);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+      align-items: center;
+    }
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--on-surface-variant);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-cta {
+      font-family: var(--font-display) !important;
+      font-size: 14px !important;
+      font-weight: 600 !important;
+      background: var(--primary);
+      color: var(--on-primary) !important;
+      padding: 8px 20px;
+      border-radius: var(--rounded);
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+    .nav-cta:hover { background: var(--primary-deep); }
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--on-surface);
+      margin: 5px 0;
+      transition: all 0.2s ease;
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      padding: 100px 0 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+    .hero-content { max-width: 560px; }
+    .hero-label {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: heroFadeUp 0.6s ease 0.1s forwards;
+    }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--on-surface);
+      margin-bottom: 24px;
+      text-wrap: balance;
+    }
+    .hero h1 .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: heroWordIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .hero p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--on-surface-variant);
+      max-width: 520px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: heroFadeUp 0.7s ease 0.9s forwards;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      opacity: 0;
+      animation: heroFadeUp 0.7s ease 1.1s forwards;
+    }
+    @keyframes heroFadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes heroWordIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Hero canvas */
+    .hero-canvas-wrap {
+      position: relative;
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-canvas-wrap canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .hero-canvas-center {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+    }
+    .hero-canvas-center svg {
+      width: 120px;
+      height: 140px;
+      opacity: 0;
+      animation: heroShieldIn 0.8s ease 1.4s forwards;
+      filter: drop-shadow(0 4px 20px rgba(13, 72, 79, 0.15));
+    }
+    @keyframes heroShieldIn {
+      from { opacity: 0; transform: scale(0.7) translateY(10px); }
+      to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .shield-glow {
+      fill: var(--primary);
+      opacity: 0;
+      animation: shieldGlowPulse 3s ease 2.5s infinite;
+    }
+    @keyframes shieldGlowPulse {
+      0%, 100% { opacity: 0.03; }
+      50% { opacity: 0.08; }
+    }
+    .shield-fill {
+      fill: var(--primary);
+      opacity: 0;
+      animation: shieldFillIn 0.6s ease 1.8s forwards;
+    }
+    @keyframes shieldFillIn { to { opacity: 0.07; } }
+    .shield-outline {
+      fill: none;
+      stroke: var(--primary);
+      stroke-width: 1.5;
+      stroke-dasharray: 300;
+      stroke-dashoffset: 300;
+      animation: drawShieldOutline 1.2s ease 1.6s forwards;
+    }
+    @keyframes drawShieldOutline { to { stroke-dashoffset: 0; } }
+    .shield-inner {
+      fill: none;
+      stroke: var(--primary);
+      stroke-width: 0.5;
+      opacity: 0;
+      animation: shieldFillIn 0.5s ease 2s forwards;
+    }
+    .shield-check {
+      fill: none; stroke: var(--primary); stroke-width: 3.5;
+      stroke-linecap: round; stroke-linejoin: round;
+      stroke-dasharray: 40; stroke-dashoffset: 40;
+      animation: drawCheck 0.5s ease 2.4s forwards;
+    }
+    @keyframes drawCheck { to { stroke-dashoffset: 0; } }
+    .shield-check-glow {
+      fill: none; stroke: var(--primary); stroke-width: 6;
+      stroke-linecap: round; stroke-linejoin: round;
+      opacity: 0;
+      animation: checkGlow 0.4s ease 2.8s forwards;
+    }
+    @keyframes checkGlow {
+      0% { opacity: 0; }
+      50% { opacity: 0.15; }
+      100% { opacity: 0.06; }
+    }
+
+    .hero-floating-tags {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .hero-tag {
+      position: absolute;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      padding: 7px 14px;
+      border-radius: 2px;
+      white-space: nowrap;
+      background: var(--surface-container-lowest);
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 16px var(--primary-tint);
+      opacity: 0;
+    }
+    .hero-tag-1 {
+      top: 12%; right: 5%;
+      color: var(--primary);
+      animation: tagAppear 0.6s ease 2.4s forwards, tagFloat 5s ease-in-out 3s infinite;
+    }
+    .hero-tag-2 {
+      bottom: 18%; left: 2%;
+      color: #2e6b45;
+      animation: tagAppear 0.6s ease 2.7s forwards, tagFloat 5s ease-in-out 3.3s infinite;
+    }
+    .hero-tag-3 {
+      top: 55%; right: 0%;
+      color: var(--outline);
+      animation: tagAppear 0.6s ease 3s forwards, tagFloat 5s ease-in-out 3.6s infinite;
+    }
+    @keyframes tagAppear {
+      from { opacity: 0; transform: translateY(10px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes tagFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* Stats bar */
+    .stats-bar {
+      padding: 48px 0;
+      border-top: 1px solid var(--border);
+      margin-top: 80px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      text-align: center;
+    }
+    .stat {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    .stat.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .stat-number {
+      font-family: var(--font-display);
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--primary);
+      line-height: 1;
+      margin-bottom: 8px;
+      font-variant-numeric: tabular-nums;
+    }
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--outline);
+    }
+
+    /* ---- SECTIONS ---- */
+    section { padding: 80px 0; }
+    .section-alt {
+      background: var(--surface-container);
+      background-image: none;
+    }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--on-surface);
+      margin-bottom: 20px;
+      text-wrap: balance;
+    }
+    .section-title .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .section-title.visible .word { opacity: 1; transform: translateY(0); }
+    .section-subtitle {
+      font-size: 18px;
+      color: var(--on-surface-variant);
+      max-width: 600px;
+      margin-bottom: 48px;
+    }
+
+    /* ---- PROBLEM ---- */
+    .problem-content { max-width: 680px; }
+    .problem-content p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: var(--on-surface-variant);
+      margin-bottom: 16px;
+    }
+    .problem-content p:last-child { margin-bottom: 0; }
+    .problem-content strong { color: var(--on-surface); font-weight: 600; }
+    .problem-callout {
+      border-left: 3px solid var(--primary);
+      padding: 20px 24px;
+      margin: 24px 0;
+      background: rgba(13, 72, 79, 0.04);
+      border-radius: 0 var(--rounded) var(--rounded) 0;
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--on-surface);
+    }
+    .problem-requirements {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .problem-req {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--surface-container-lowest);
+      border: 1px solid var(--border);
+      border-radius: var(--rounded);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .problem-requirements.visible .problem-req { opacity: 1; transform: none; }
+    .problem-requirements.visible .problem-req:nth-child(1) { transition-delay: 0s; }
+    .problem-requirements.visible .problem-req:nth-child(2) { transition-delay: 0.1s; }
+    .problem-requirements.visible .problem-req:nth-child(3) { transition-delay: 0.2s; }
+    .problem-requirements.visible .problem-req:nth-child(4) { transition-delay: 0.3s; }
+    .problem-req svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--primary);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+    .problem-req span {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--on-surface-variant);
+    }
+    .stat-inline {
+      font-family: var(--font-display);
+      font-weight: 700;
+      color: var(--primary);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ---- SERVICES ---- */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .service-card {
+      background: var(--surface-container-lowest);
+      border: 1px solid var(--border);
+      border-radius: var(--rounded);
+      padding: 32px;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    .service-card:hover {
+      box-shadow: 0 12px 40px rgba(13, 72, 79, 0.08);
+    }
+    .service-card h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--on-surface);
+      margin-bottom: 12px;
+    }
+    .service-card p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--on-surface-variant);
+    }
+    .service-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      transition: background 0.3s ease;
+    }
+    .service-card:hover .service-icon { background: var(--primary); }
+    .service-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--primary);
+      fill: none;
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.3s ease;
+    }
+    .service-card:hover .service-icon svg { stroke: var(--on-primary); }
+
+    /* ---- TIMELINE ---- */
+    .timeline {
+      max-width: 640px;
+      position: relative;
+      padding-left: 56px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 8px;
+      bottom: 8px;
+      width: 2px;
+      background: var(--primary);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 1s ease 1.2s;
+    }
+    .timeline.visible::before { transform: scaleY(1); }
+    .timeline-step {
+      position: relative;
+      margin-bottom: 48px;
+    }
+    .timeline-step:last-child { margin-bottom: 0; }
+    .timeline-dot {
+      position: absolute;
+      left: -56px;
+      top: 0;
+      width: 40px;
+      height: 40px;
+      background: var(--surface-container);
+      border: 2px solid var(--outline-variant);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.5s ease, background 0.5s ease, box-shadow 0.5s ease;
+      z-index: 2;
+    }
+    .timeline.visible .timeline-step .timeline-dot {
+      border-color: var(--primary);
+      background: var(--surface);
+    }
+    .timeline.visible .timeline-step:nth-child(1) .timeline-dot { transition-delay: 0.3s; }
+    .timeline.visible .timeline-step:nth-child(2) .timeline-dot { transition-delay: 0.6s; }
+    .timeline.visible .timeline-step:nth-child(3) .timeline-dot { transition-delay: 0.9s; }
+    .timeline.visible .timeline-dot {
+      box-shadow: 0 0 0 4px rgba(13, 72, 79, 0.08);
+    }
+    .timeline-dot .tl-icon {
+      width: 18px;
+      height: 18px;
+      fill: none;
+      stroke: var(--outline);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      transition: stroke 0.5s ease;
+    }
+    .timeline.visible .timeline-dot .tl-icon { stroke: var(--primary); }
+    .tl-draw {
+      transition: stroke-dashoffset 0.8s ease, stroke 0.5s ease;
+    }
+    .timeline-step h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--on-surface);
+      margin-bottom: 8px;
+    }
+    .timeline-step p {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--on-surface-variant);
+      max-width: 520px;
+    }
+    .timeline-step {
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .timeline.visible .timeline-step:nth-child(1) { opacity: 1; transform: none; transition-delay: 0.2s; }
+    .timeline.visible .timeline-step:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.5s; }
+    .timeline.visible .timeline-step:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.8s; }
+
+    /* Process layout */
+    .process-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    /* Terminal */
+    .terminal {
+      background: var(--primary-deep);
+      border-radius: var(--rounded);
+      overflow: hidden;
+      align-self: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s;
+    }
+    .terminal.visible { opacity: 1; transform: none; }
+    .terminal-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 16px;
+      background: rgba(0, 0, 0, 0.2);
+    }
+    .terminal-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .terminal-title {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-left: 8px;
+    }
+    .terminal-body {
+      padding: 20px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      line-height: 2;
+      color: rgba(255, 255, 255, 0.5);
+      min-height: 200px;
+    }
+    .terminal-line {
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      white-space: nowrap;
+    }
+    .terminal-line.typed { opacity: 1; transform: none; }
+    .terminal-line .t-prompt { color: rgba(13, 200, 150, 0.7); }
+    .terminal-line .t-cmd { color: rgba(255, 255, 255, 0.8); }
+    .terminal-line .t-ok { color: rgba(80, 220, 140, 0.9); }
+    .terminal-line .t-dim { color: rgba(255, 255, 255, 0.3); }
+    .terminal-cursor {
+      display: inline-block;
+      width: 7px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.6);
+      vertical-align: text-bottom;
+      animation: cursorBlink 1s step-end infinite;
+    }
+    @keyframes cursorBlink {
+      50% { opacity: 0; }
+    }
+
+    /* ---- PRICING ---- */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+    .pricing-card {
+      background: var(--surface-container-lowest);
+      border: 1px solid var(--border);
+      border-radius: var(--rounded);
+      padding: 32px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    .pricing-card:hover {
+      box-shadow: 0 12px 40px rgba(13, 72, 79, 0.08);
+    }
+
+    .pricing-card.featured {
+      position: relative;
+      border: none;
+      background: var(--surface-container-lowest);
+    }
+    .pricing-card.featured::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: var(--rounded);
+      padding: 2px;
+      background: linear-gradient(135deg, #0d484f, #2563eb, #2e6b45, #0d484f);
+      background-size: 300% 300%;
+      animation: gradientBorder 4s ease infinite;
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+    .pricing-card.featured::after {
+      content: 'Most popular';
+      position: absolute;
+      top: -12px;
+      left: 24px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      background: var(--primary);
+      color: var(--on-primary);
+      padding: 4px 12px;
+      border-radius: 2px;
+      z-index: 1;
+    }
+    @keyframes gradientBorder {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .pricing-label {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--outline);
+      margin-bottom: 8px;
+    }
+    .pricing-amount {
+      font-family: var(--font-display);
+      font-size: 40px;
+      font-weight: 700;
+      color: var(--on-surface);
+      margin-bottom: 12px;
+    }
+    .pricing-desc {
+      font-size: 14px;
+      color: var(--on-surface-variant);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+    .pricing-card .btn-primary,
+    .pricing-card .btn-ghost {
+      width: 100%;
+      text-align: center;
+      padding: 12px 24px;
+    }
+    .pricing-extras {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .pricing-extra {
+      background: var(--surface-container);
+      border-radius: var(--rounded);
+      padding: 24px;
+    }
+    .pricing-extra h4 {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--on-surface);
+      margin-bottom: 4px;
+    }
+    .pricing-extra p {
+      font-size: 14px;
+      color: var(--on-surface-variant);
+      line-height: 1.5;
+    }
+
+    /* ---- INCLUDED ---- */
+    .included-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+    }
+    .included-list h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+    .included-list ul { list-style: none; padding: 0; }
+    .included-list li {
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--on-surface-variant);
+      padding: 8px 0;
+      padding-left: 20px;
+      position: relative;
+    }
+    .included-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 14px;
+      width: 6px;
+      height: 6px;
+      border-radius: 1px;
+    }
+    .included-yes li::before { background: var(--primary); }
+    .included-no li::before { background: var(--outline-variant); }
+
+    /* ---- FAQ ---- */
+    .faq-list { max-width: 720px; }
+    .faq-item { border-bottom: 1px solid var(--border); transition: background 0.3s ease, margin 0.3s ease, padding 0.3s ease, border-radius 0.3s ease; }
+    .faq-question {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 20px 0;
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--on-surface);
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      transition: color 0.2s ease;
+    }
+    .faq-question:hover { color: var(--primary); }
+    .faq-chevron {
+      width: 20px; height: 20px; flex-shrink: 0;
+      stroke: var(--outline); fill: none; stroke-width: 1.5;
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.2s ease;
+    }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); stroke: var(--primary); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .faq-answer-inner {
+      padding: 0 0 20px;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--on-surface-variant);
+      max-width: 620px;
+    }
+    .faq-answer-inner strong { color: var(--on-surface); font-weight: 600; }
+    .faq-item.open .faq-question { color: var(--primary); }
+    .faq-item.open {
+      background: var(--surface-container);
+      margin: 0 -16px;
+      padding: 0 16px;
+      border-radius: var(--rounded);
+      border-bottom-color: transparent;
+    }
+
+    /* ---- ABOUT ---- */
+    .about-content { max-width: 640px; }
+    .about-content p {
+      font-size: 17px;
+      line-height: 1.7;
+      color: var(--on-surface-variant);
+      margin-bottom: 16px;
+    }
+    .about-content p:last-child { margin-bottom: 0; }
+
+    /* ---- CONTACT ---- */
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+    }
+    .contact-intro h2 {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+    .contact-intro p {
+      font-size: 16px;
+      color: var(--on-surface-variant);
+      margin-bottom: 32px;
+      max-width: 400px;
+    }
+    .contact-method {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .contact-method svg {
+      width: 18px; height: 18px;
+      stroke: var(--primary); fill: none; stroke-width: 1.5;
+      flex-shrink: 0;
+    }
+    .contact-method a {
+      font-size: 15px;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .contact-method a:hover { text-decoration: underline; }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--outline);
+      margin-bottom: 6px;
+      transition: color 0.2s ease;
+    }
+    .form-group:focus-within .form-label { color: var(--primary); }
+    .form-input, .form-select, .form-textarea {
+      font-family: var(--font-body);
+      font-size: 15px;
+      color: var(--on-surface);
+      background: var(--surface-container-lowest);
+      border: 1px solid var(--border-input);
+      border-radius: var(--rounded);
+      padding: 12px 14px;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      transform: translateY(-1px);
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--outline-variant); }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2370797a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 36px;
+    }
+    .form-submit { grid-column: 1 / -1; margin-top: 8px; }
+    .form-submit .btn-primary { width: 100%; text-align: center; padding: 14px 28px; }
+
+    /* ---- BUTTONS ---- */
+    .btn-primary {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      background: var(--primary);
+      color: var(--on-primary);
+      padding: 14px 28px;
+      border: none;
+      border-radius: var(--rounded);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+      position: relative;
+    }
+    .btn-primary:hover {
+      background: var(--primary-deep);
+      box-shadow: 0 8px 24px rgba(13, 72, 79, 0.15);
+      transform: translateY(-2px);
+    }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-ghost {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      background: transparent;
+      color: var(--primary);
+      padding: 14px 28px;
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--rounded);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+    .btn-ghost:hover {
+      background: var(--surface-container);
+      border-color: var(--primary);
+      transform: translateY(-2px);
+    }
+    .btn-ghost:active { transform: translateY(0); }
+
+    /* ---- FOOTER ---- */
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+    }
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-text { font-size: 13px; color: var(--outline); }
+    .footer-links { display: flex; gap: 24px; list-style: none; }
+    .footer-links a { font-size: 13px; color: var(--outline); text-decoration: none; }
+    .footer-links a:hover { color: var(--primary); }
+
+    /* ---- SCROLL REVEAL ---- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      filter: blur(4px);
+      transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+      filter: blur(0);
+    }
+    .reveal-stagger > .reveal:nth-child(1) { transition-delay: 0s; }
+    .reveal-stagger > .reveal:nth-child(2) { transition-delay: 0.15s; }
+    .reveal-stagger > .reveal:nth-child(3) { transition-delay: 0.3s; }
+
+    /* ---- RESPONSIVE ---- */
+    @media (max-width: 900px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .pricing-grid { grid-template-columns: 1fr; }
+      .pricing-extras { grid-template-columns: 1fr; }
+      .included-grid { grid-template-columns: 1fr; gap: 32px; }
+      .contact-layout { grid-template-columns: 1fr; gap: 40px; }
+      .stats-grid { grid-template-columns: 1fr; gap: 24px; }
+    }
+    @media (max-width: 768px) {
+      .hero { padding: 64px 0 0; }
+      .hero-inner { grid-template-columns: 1fr; gap: 32px; }
+      .hero-canvas-wrap { min-height: 300px; }
+      .hero h1 { font-size: 36px; }
+      .hero p { font-size: 16px; }
+      section { padding: 56px 0; }
+      .section-title { font-size: 26px; }
+      .nav-links { display: none; }
+      .nav-toggle { display: block; }
+      .nav-links.open {
+        display: flex; flex-direction: column;
+        position: absolute; top: 64px; left: 0; right: 0;
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        padding: 16px var(--gutter) 24px;
+        gap: 16px;
+      }
+      .nav-links.open .nav-cta { text-align: center; display: block; }
+      .form-grid { grid-template-columns: 1fr; }
+      .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+      .pricing-amount { font-size: 32px; }
+      .problem-requirements { grid-template-columns: 1fr; }
+      .process-layout { grid-template-columns: 1fr; }
+      .terminal { align-self: start; }
+      .contact-intro h2 { font-size: 26px; }
+      .stat-number { font-size: 32px; }
+    }
+
+    /* ---- FOCUS & REDUCED MOTION ---- */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--secondary);
+      outline-offset: 2px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+      .reveal, .stat, .timeline-step { opacity: 1; transform: none; filter: none; }
+      .timeline::before { transform: scaleY(1); }
+      .tl-draw { stroke-dashoffset: 0; }
+      .hero h1 .word, .section-title .word { opacity: 1; transform: none; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "name": "Age Verification Implementation",
+        "url": "https://avimplementation.com/",
+        "email": "zsofiamaruzs.consulting@gmail.com",
+        "description": "Professional age verification implementation service for adult content sites. Full technical setup on any platform.",
+        "priceRange": "$250-$750",
+        "areaServed": "Worldwide",
+        "serviceType": "Age Verification Implementation",
+        "knowsAbout": ["age verification", "adult content compliance", "PrivateAV", "API integration", "webhook configuration"]
+      },
+      {
+        "@type": "Service",
+        "name": "Age Verification Setup",
+        "provider": {
+          "@type": "ProfessionalService",
+          "name": "Age Verification Implementation"
+        },
+        "serviceType": "Age Verification Implementation",
+        "description": "Full-service age verification setup for adult content platforms. API integration, webhook configuration, sandbox testing, and production go-live.",
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Single Site",
+            "price": "300",
+            "priceCurrency": "USD"
+          },
+          {
+            "@type": "Offer",
+            "name": "3-Site Bundle",
+            "price": "750",
+            "priceCurrency": "USD"
+          },
+          {
+            "@type": "Offer",
+            "name": "Additional Site",
+            "price": "250",
+            "priceCurrency": "USD"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What platforms do you work with?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "WordPress, Shopify, custom-built PHP or Node.js sites, static sites. If it's on the web, we can work with it. Most of our clients run custom or static sites, but the integration approach adapts to whatever stack you're running."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will my users' data be stored anywhere?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The platform processes verification data exclusively in RAM, volatile memory that's cleared within milliseconds. Nothing touches a hard drive, nothing is logged, nothing is saved. This is how the system is built, not a setting that can be changed."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does the setup take?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It depends on your platform and the complexity of your setup. We'll give you a clear timeline before we start so there are no surprises."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do I need to do anything technical?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. You'll need to provide admin access to your site and your hosting environment, and you'll need a verification platform account with API credentials. We'll walk you through creating one if you don't have it. It takes about 5 minutes. Everything else is on us."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What if I don't have a verification account yet?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No problem. We'll walk you through the signup process. You can have an account with API credentials ready in under 10 minutes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens after you're done?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "You get a written handoff document listing everything we set up, where your API credentials are stored, and how to contact platform support for ongoing questions. If something breaks specifically because of the integration we installed, we'll fix it. Otherwise, the verification platforms handle ongoing support."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-name">Age Verification Implementation</a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#how-it-works">Process</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact" class="nav-cta">Get a Quote</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+
+    <section class="hero" id="hero">
+      <div class="container">
+        <div class="hero-inner">
+          <div class="hero-content">
+            <h1>Age verification implementation for adult content sites</h1>
+            <p>We handle the full technical implementation of age verification for adult content platforms. You stay focused on your business.</p>
+            <div class="hero-actions">
+              <a href="#contact" class="btn-primary">Get a Free Quote</a>
+              <a href="#how-it-works" class="btn-ghost">See How It Works</a>
+            </div>
+          </div>
+          <div class="hero-canvas-wrap">
+            <canvas id="particleCanvas"></canvas>
+            <div class="hero-canvas-center">
+              <svg viewBox="0 0 100 120">
+                <path class="shield-glow" d="M50 4 L94 26 L94 64 C94 89 72 109 50 119 C28 109 6 89 6 64 L6 26 Z"/>
+                <path class="shield-fill" d="M50 8 L90 28 L90 62 C90 85 70 105 50 115 C30 105 10 85 10 62 L10 28 Z"/>
+                <path class="shield-outline" d="M50 8 L90 28 L90 62 C90 85 70 105 50 115 C30 105 10 85 10 62 L10 28 Z"/>
+                <path class="shield-inner" d="M50 18 L82 34 L82 60 C82 79 66 95 50 103 C34 95 18 79 18 60 L18 34 Z"/>
+                <path class="shield-check-glow" d="M35 62 L46 73 L67 48"/>
+                <path class="shield-check" d="M35 62 L46 73 L67 48"/>
+              </svg>
+            </div>
+            <div class="hero-floating-tags">
+              <div class="hero-tag hero-tag-1">Full-service setup</div>
+              <div class="hero-tag hero-tag-2">Any platform</div>
+              <div class="hero-tag hero-tag-3">Zero code required</div>
+            </div>
+          </div>
+        </div>
+        <div class="stats-bar">
+          <div class="stats-grid">
+            <div class="stat" data-target="40" data-suffix="+">
+              <div class="stat-number">0</div>
+              <div class="stat-label">Jurisdictions covered</div>
+            </div>
+            <div class="stat" data-static="true">
+              <div class="stat-number">99.7%</div>
+              <div class="stat-label">Verification accuracy</div>
+            </div>
+            <div class="stat" data-target="0" data-static="true">
+              <div class="stat-number">0</div>
+              <div class="stat-label">User data retained</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt" id="problem">
+      <div class="container">
+        <h2 class="section-title split-text">Compliance isn't optional anymore</h2>
+        <div class="problem-content">
+          <p class="reveal">Age verification laws are live in <span class="stat-inline" data-target="25" data-suffix="+">0</span> <strong>U.S. states</strong>, with more on the way. The EU is tightening enforcement. Regulators aren't waiting, and neither should you.</p>
+          <blockquote class="problem-callout reveal">The fines are real, and "we're working on it" isn't a legal defense.</blockquote>
+          <p class="reveal">The problem? Most site operators aren't developers. The verification platforms have solid technology, but setting them up requires real technical work.</p>
+          <div class="problem-requirements">
+            <div class="problem-req">
+              <svg viewBox="0 0 24 24"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+              <span>API integration</span>
+            </div>
+            <div class="problem-req">
+              <svg viewBox="0 0 24 24"><path d="M15 7h3a5 5 0 0 1 0 10h-3m-6 0H6a5 5 0 0 1 0-10h3M8 12h8"/></svg>
+              <span>Webhook configuration</span>
+            </div>
+            <div class="problem-req">
+              <svg viewBox="0 0 24 24"><path d="M4 17l6-6-6-6M12 19h8"/></svg>
+              <span>Server-side scripting</span>
+            </div>
+            <div class="problem-req">
+              <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              <span>End-to-end testing</span>
+            </div>
+          </div>
+          <p class="reveal"><strong>That's where we come in.</strong></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="services">
+      <div class="container">
+        <h2 class="section-title split-text">Full-service implementation.</h2>
+        <p class="section-subtitle reveal">Full-service age verification setup so you don't have to touch the technical work. Three things define how we work:</p>
+        <div class="services-grid reveal-stagger">
+          <div class="service-card reveal">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
+            </div>
+            <h3>You don't touch code.</h3>
+            <p>We handle every technical step, from connecting your site to the verification platform to testing the full flow. You give us site access and answer a few questions. That's it.</p>
+          </div>
+          <div class="service-card reveal">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <h3>Fixed scope, fixed price.</h3>
+            <p>No open-ended consulting, no hourly billing, no scope creep. You'll know exactly what you're paying before we start, and exactly what you're getting when we're done.</p>
+          </div>
+          <div class="service-card reveal">
+            <div class="service-icon">
+              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3>Built for this industry.</h3>
+            <p>We work with PrivateAV, a privacy-first platform built specifically for adult content compliance. We know the platforms, the hosting environments, and the regulatory landscape.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt" id="how-it-works">
+      <div class="container">
+        <h2 class="section-title split-text">Three steps. That's it.</h2>
+        <p class="section-subtitle reveal">From first contact to live verification, the process is straightforward.</p>
+        <div class="process-layout">
+          <div class="timeline" id="timeline">
+            <div class="timeline-step">
+              <div class="timeline-dot"><svg class="tl-icon" viewBox="0 0 24 24"><path class="tl-draw" d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+              <h3>Tell us about your site.</h3>
+              <p>Fill out the contact form or book a quick call. We'll need to know what platform you're on (WordPress, custom-built, etc.), how many sites you need set up, and what content needs to be age-gated.</p>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-dot"><svg class="tl-icon" viewBox="0 0 24 24"><path class="tl-draw" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg></div>
+              <h3>We set everything up.</h3>
+              <p>We connect your site to the verification platform, configure the flow, and test everything in sandbox mode (no real verifications, no charges) until it works perfectly on desktop and mobile.</p>
+            </div>
+            <div class="timeline-step">
+              <div class="timeline-dot"><svg class="tl-icon" viewBox="0 0 24 24"><path class="tl-draw" d="M20 6L9 17l-5-5"/></svg></div>
+              <h3>You're live and compliant.</h3>
+              <p>We switch to production, run a final live verification to confirm the end-to-end flow, and hand off with a written summary of everything that was set up and where to find it.</p>
+            </div>
+          </div>
+          <div class="terminal" id="terminal">
+            <div class="terminal-bar">
+              <div class="terminal-dot"></div>
+              <div class="terminal-dot"></div>
+              <div class="terminal-dot"></div>
+              <span class="terminal-title">implementation.sh</span>
+            </div>
+            <div class="terminal-body" id="terminal-body">
+              <div class="terminal-line" data-step="0"><span class="t-prompt">$ </span><span class="t-cmd">analyzing site platform...</span></div>
+              <div class="terminal-line" data-step="0"><span class="t-dim">  detected: WordPress 6.4 on MojoHost</span></div>
+              <div class="terminal-line" data-step="1"><span class="t-prompt">$ </span><span class="t-cmd">connecting API keys...</span></div>
+              <div class="terminal-line" data-step="1"><span class="t-dim">  endpoint: api.privateav.com/v1</span></div>
+              <div class="terminal-line" data-step="1"><span class="t-prompt">$ </span><span class="t-cmd">configuring webhooks...</span></div>
+              <div class="terminal-line" data-step="1"><span class="t-dim">  webhook: /av/callback  registered</span></div>
+              <div class="terminal-line" data-step="1"><span class="t-prompt">$ </span><span class="t-cmd">setting content restrictions...</span></div>
+              <div class="terminal-line" data-step="2"><span class="t-prompt">$ </span><span class="t-cmd">running sandbox verification...</span></div>
+              <div class="terminal-line" data-step="2"><span class="t-ok">  ✓ L1 age estimation passed</span></div>
+              <div class="terminal-line" data-step="2"><span class="t-ok">  ✓ content gate active</span></div>
+              <div class="terminal-line" data-step="2"><span class="t-prompt">$ </span><span class="t-cmd">switching to production...</span></div>
+              <div class="terminal-line" data-step="2"><span class="t-ok">  ✓ site is live and compliant</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="pricing">
+      <div class="container">
+        <h2 class="section-title split-text">Transparent pricing. No surprises.</h2>
+        <p class="section-subtitle reveal">Fixed price per site. You know what you're paying before we start.</p>
+        <div class="pricing-grid reveal-stagger">
+          <div class="pricing-card reveal tilt-card">
+            <div class="pricing-label">Single site</div>
+            <div class="pricing-amount">$300</div>
+            <p class="pricing-desc">Full age verification implementation on one site. Any platform, any stack.</p>
+            <a href="#contact" class="btn-ghost">Get Started</a>
+          </div>
+          <div class="pricing-card featured reveal tilt-card">
+            <div class="pricing-label">3-site bundle</div>
+            <div class="pricing-amount">$750</div>
+            <p class="pricing-desc">Three sites for one flat price.</p>
+            <a href="#contact" class="btn-primary">Get Started</a>
+          </div>
+          <div class="pricing-card reveal tilt-card">
+            <div class="pricing-label">Additional site</div>
+            <div class="pricing-amount">$250</div>
+            <p class="pricing-desc">Each additional site for the same owner, added to any engagement.</p>
+            <a href="#contact" class="btn-ghost">Get Started</a>
+          </div>
+        </div>
+        <div class="pricing-extras reveal">
+          <div class="pricing-extra">
+            <h4>Any platform, same price</h4>
+            <p>WordPress, Shopify, custom-built. The price is the same regardless of your tech stack. No surprise fees based on complexity.</p>
+          </div>
+          <div class="pricing-extra">
+            <h4>Need something custom?</h4>
+            <p>Multi-site rollouts, custom gating logic, or platform migrations? Reach out and we'll scope it together.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt" id="included">
+      <div class="container">
+        <h2 class="section-title split-text">What's in and what's not.</h2>
+        <div class="included-grid reveal">
+          <div class="included-list included-yes">
+            <h3>Included</h3>
+            <ul>
+              <li>Full age verification implementation on your site</li>
+              <li>API/SDK integration and webhook configuration</li>
+              <li>Content gating to restrict access to verified users only</li>
+              <li>Sandbox testing and production go-live confirmation</li>
+              <li>Written handoff summary with everything documented</li>
+            </ul>
+          </div>
+          <div class="included-list included-no">
+            <h3>Not included</h3>
+            <ul>
+              <li>Ongoing site maintenance or updates</li>
+              <li>Custom design or UX changes (verification UI is hosted by the platform)</li>
+              <li>Account creation (we'll walk you through it, you own the account)</li>
+              <li>Server or hosting reconfiguration beyond what the integration requires</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="container">
+        <h2 class="section-title split-text">Common questions.</h2>
+        <div class="faq-list reveal">
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">What platforms do you work with?<svg class="faq-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="faq-answer"><div class="faq-answer-inner">WordPress, Shopify, custom-built PHP or Node.js sites, static sites. If it's on the web, we can work with it. Most of our clients run custom or static sites, but the integration approach adapts to whatever stack you're running.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">Will my users' data be stored anywhere?<svg class="faq-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="faq-answer"><div class="faq-answer-inner">No. The platform processes verification data exclusively in RAM, volatile memory that's cleared within milliseconds. Nothing touches a hard drive, nothing is logged, nothing is saved. This is how the system is built, not a setting that can be changed.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">How long does the setup take?<svg class="faq-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="faq-answer"><div class="faq-answer-inner">It depends on your platform and the complexity of your setup. We'll give you a clear timeline before we start so there are no surprises.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">Do I need to do anything technical?<svg class="faq-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="faq-answer"><div class="faq-answer-inner">No. You'll need to provide admin access to your site and your hosting environment, and you'll need a verification platform account with API credentials. We'll walk you through creating one if you don't have it. It takes about 5 minutes. Everything else is on us.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">What if I don't have a verification account yet?<svg class="faq-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="faq-answer"><div class="faq-answer-inner">No problem. We'll walk you through the signup process. You can have an account with API credentials ready in under 10 minutes.</div></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question" aria-expanded="false">What happens after you're done?<svg class="faq-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="faq-answer"><div class="faq-answer-inner">You get a written handoff document listing everything we set up, where your API credentials are stored, and how to contact platform support for ongoing questions. If something breaks specifically because of the integration we installed, we'll fix it. Otherwise, the verification platforms handle ongoing support.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-alt" id="about">
+      <div class="container">
+        <h2 class="section-title split-text">Who we are</h2>
+        <div class="about-content reveal">
+          <p>We're a small, focused age verification implementation practice with over eight years of experience across frontend and backend development. We've been working in the adult content space for several years, and as regulations accelerated, we narrowed our focus to helping site operators get compliant without needing to become developers themselves.</p>
+          <p>We're familiar with the hosting environments most operators use and we've done enough implementations to know where the common pitfalls are and how to avoid them. We work with privacy-first verification platforms because that's what this industry needs: nothing stored, nothing logged, everything processed in memory and gone within milliseconds.</p>
+          <p>If your site needs age verification and you'd rather not spend a week reading API documentation, reach out.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="contact-layout reveal">
+          <div class="contact-intro">
+            <h2>Let's get your site compliant</h2>
+            <p>Fill out the form or reach out directly. We'll get back to you within one business day.</p>
+            <div class="contact-method">
+              <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+              <a href="mailto:zsofiamaruzs.consulting@gmail.com">zsofiamaruzs.consulting@gmail.com</a>
+            </div>
+          </div>
+          <form class="contact-form" action="#" method="POST">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label" for="name">Your name</label>
+                <input class="form-input" type="text" id="name" name="name" placeholder="Jane Smith" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">Email address</label>
+                <input class="form-input" type="email" id="email" name="email" placeholder="jane@example.com" required>
+              </div>
+              <div class="form-group full">
+                <label class="form-label" for="site">Site URL(s)</label>
+                <input class="form-input" type="text" id="site" name="site" placeholder="https://yoursite.com">
+              </div>
+              <div class="form-group full">
+                <label class="form-label" for="details">What do you need?</label>
+                <textarea class="form-textarea" id="details" name="details" placeholder="Tell us about your site, how many sites need setup, and any specific requirements..."></textarea>
+              </div>
+              <div class="form-group full">
+                <label class="form-label" for="referral">How did you hear about us? <span style="font-weight:400;text-transform:none;letter-spacing:0;font-family:var(--font-body);color:var(--outline-variant)">(optional)</span></label>
+                <input class="form-input" type="text" id="referral" name="referral">
+              </div>
+              <div class="form-submit">
+                <button type="submit" class="btn-primary">Send Inquiry</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <ul class="footer-links">
+          <li><a href="mailto:zsofiamaruzs.consulting@gmail.com">Email</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ---- PARTICLE NETWORK ----
+    (function() {
+      var canvas = document.getElementById('particleCanvas');
+      if (!canvas) return;
+      var ctx = canvas.getContext('2d');
+      var particles = [];
+      var mouse = { x: null, y: null };
+      var PARTICLE_COUNT = 50;
+      var CONNECT_DIST = 120;
+      var raf;
+
+      function resize() {
+        var rect = canvas.parentElement.getBoundingClientRect();
+        canvas.width = rect.width * devicePixelRatio;
+        canvas.height = rect.height * devicePixelRatio;
+        canvas.style.width = rect.width + 'px';
+        canvas.style.height = rect.height + 'px';
+        ctx.scale(devicePixelRatio, devicePixelRatio);
+      }
+
+      function createParticles() {
+        var rect = canvas.parentElement.getBoundingClientRect();
+        particles = [];
+        for (var i = 0; i < PARTICLE_COUNT; i++) {
+          particles.push({
+            x: rect.width * Math.random(),
+            y: rect.height * Math.random(),
+            vx: (Math.random() - 0.5) * 0.4,
+            vy: (Math.random() - 0.5) * 0.4,
+            r: 2 + Math.random() * 2
+          });
+        }
+      }
+
+      function draw() {
+        var rect = canvas.parentElement.getBoundingClientRect();
+        var w = rect.width, h = rect.height;
+        ctx.clearRect(0, 0, w, h);
+
+        for (var i = 0; i < particles.length; i++) {
+          var p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > w) p.vx *= -1;
+          if (p.y < 0 || p.y > h) p.vy *= -1;
+
+          if (mouse.x !== null) {
+            var dx = mouse.x - p.x, dy = mouse.y - p.y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 150) {
+              p.x += dx * 0.008;
+              p.y += dy * 0.008;
+            }
+          }
+
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = 'rgba(13, 72, 79, 0.15)';
+          ctx.fill();
+
+          for (var j = i + 1; j < particles.length; j++) {
+            var p2 = particles[j];
+            var ddx = p.x - p2.x, ddy = p.y - p2.y;
+            var d = Math.sqrt(ddx * ddx + ddy * ddy);
+            if (d < CONNECT_DIST) {
+              ctx.beginPath();
+              ctx.moveTo(p.x, p.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.strokeStyle = 'rgba(13, 72, 79,' + (0.08 * (1 - d / CONNECT_DIST)) + ')';
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+        raf = requestAnimationFrame(draw);
+      }
+
+      canvas.parentElement.addEventListener('mousemove', function(e) {
+        var rect = canvas.parentElement.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+      canvas.parentElement.addEventListener('mouseleave', function() {
+        mouse.x = null;
+        mouse.y = null;
+      });
+
+      window.addEventListener('resize', function() {
+        cancelAnimationFrame(raf);
+        resize();
+        createParticles();
+        draw();
+      });
+
+      resize();
+      createParticles();
+      draw();
+    })();
+
+    // ---- WORD SPLIT ANIMATION ----
+    document.querySelectorAll('.hero h1, .split-text').forEach(function(el) {
+      var text = el.textContent.trim();
+      var words = text.split(/\s+/);
+      var isHero = el.tagName === 'H1';
+      el.innerHTML = words.map(function(w, i) {
+        var delay = isHero ? (0.2 + i * 0.06) : (i * 0.06);
+        return '<span class="word" style="animation-delay:' + delay + 's;transition-delay:' + delay + 's">' + w + '</span> ';
+      }).join('');
+    });
+
+    // ---- SCROLL REVEAL ----
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+    document.querySelectorAll('.reveal, .split-text, .timeline, .stat, .problem-requirements').forEach(function(el) {
+      observer.observe(el);
+    });
+
+    // ---- INLINE STAT COUNTER ----
+    document.querySelectorAll('.stat-inline').forEach(function(el) {
+      var inlineObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          inlineObserver.unobserve(entry.target);
+          var target = parseInt(entry.target.dataset.target);
+          var suffix = entry.target.dataset.suffix || '';
+          var duration = 1000;
+          var startTime = null;
+          function tick(ts) {
+            if (!startTime) startTime = ts;
+            var progress = Math.min((ts - startTime) / duration, 1);
+            var eased = 1 - Math.pow(1 - progress, 3);
+            entry.target.textContent = Math.round(target * eased) + suffix;
+            if (progress < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        });
+      }, { threshold: 0.5 });
+      inlineObserver.observe(el);
+    });
+
+    // ---- STATS COUNTER ----
+    var statsObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        el.classList.add('visible');
+        statsObserver.unobserve(el);
+        if (el.dataset.static === 'true') return;
+        var target = parseInt(el.dataset.target);
+        var prefix = el.dataset.prefix || '';
+        var suffix = el.dataset.suffix || '';
+        var numEl = el.querySelector('.stat-number');
+        var start = 0;
+        var duration = 1200;
+        var startTime = null;
+        function tick(ts) {
+          if (!startTime) startTime = ts;
+          var progress = Math.min((ts - startTime) / duration, 1);
+          var eased = 1 - Math.pow(1 - progress, 3);
+          var current = Math.round(start + (target - start) * eased);
+          numEl.textContent = prefix + current + suffix;
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.stat').forEach(function(el) {
+      statsObserver.observe(el);
+    });
+
+    // ---- 3D TILT ----
+    document.querySelectorAll('.tilt-card').forEach(function(card) {
+      card.addEventListener('mousemove', function(e) {
+        var rect = card.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        var centerX = rect.width / 2;
+        var centerY = rect.height / 2;
+        var rotateX = (y - centerY) / centerY * -4;
+        var rotateY = (x - centerX) / centerX * 4;
+        card.style.transform = 'perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg) translateY(-3px)';
+      });
+      card.addEventListener('mouseleave', function() {
+        card.style.transform = 'perspective(600px) rotateX(0) rotateY(0) translateY(0)';
+      });
+    });
+
+    // ---- SVG DRAW INIT ----
+    document.querySelectorAll('.tl-draw').forEach(function(path) {
+      var len = path.getTotalLength();
+      path.style.strokeDasharray = len;
+      path.style.strokeDashoffset = len;
+    });
+
+    // ---- TIMELINE ICON DRAW ----
+    var tlObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (!entry.isIntersecting) return;
+        tlObserver.unobserve(entry.target);
+        var stepIndex = Array.prototype.indexOf.call(
+          entry.target.parentElement.children, entry.target
+        );
+        var delay = 300 + stepIndex * 300;
+        setTimeout(function() {
+          entry.target.querySelectorAll('.tl-draw').forEach(function(path) {
+            path.style.strokeDashoffset = '0';
+          });
+        }, delay);
+      });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.timeline-step').forEach(function(step) {
+      tlObserver.observe(step);
+    });
+
+    // ---- TERMINAL TYPING ----
+    (function() {
+      var terminal = document.getElementById('terminal');
+      var lines = document.querySelectorAll('.terminal-line');
+      if (!terminal || !lines.length) return;
+      var typed = false;
+      var termObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting || typed) return;
+          typed = true;
+          termObserver.unobserve(entry.target);
+          entry.target.classList.add('visible');
+          lines.forEach(function(line, i) {
+            setTimeout(function() {
+              line.classList.add('typed');
+            }, 600 + i * 250);
+          });
+        });
+      }, { threshold: 0.2 });
+      termObserver.observe(terminal);
+
+      var stepObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          var stepIndex = Array.prototype.indexOf.call(
+            entry.target.parentElement.children, entry.target
+          );
+          lines.forEach(function(line) {
+            if (parseInt(line.dataset.step) <= stepIndex) {
+              line.classList.add('typed');
+            }
+          });
+        });
+      }, { threshold: 0.5 });
+      document.querySelectorAll('.timeline-step').forEach(function(step) {
+        stepObserver.observe(step);
+      });
+    })();
+
+    // ---- FAQ ACCORDION ----
+    document.querySelectorAll('.faq-question').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var item = this.closest('.faq-item');
+        var answer = item.querySelector('.faq-answer');
+        var isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(function(openItem) {
+          openItem.classList.remove('open');
+          openItem.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
+          openItem.querySelector('.faq-answer').style.maxHeight = null;
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          this.setAttribute('aria-expanded', 'true');
+          answer.style.maxHeight = answer.scrollHeight + 'px';
+        }
+      });
+    });
+
+    // ---- NAV ----
+    var nav = document.getElementById('nav');
+    window.addEventListener('scroll', function() {
+      nav.classList.toggle('scrolled', window.scrollY > 10);
+    });
+    var toggle = document.getElementById('nav-toggle');
+    var links = document.getElementById('nav-links');
+    toggle.addEventListener('click', function() { links.classList.toggle('open'); });
+    links.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() { links.classList.remove('open'); });
+    });
+  </script>
+
+</body>
+</html>
